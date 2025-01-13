@@ -11,6 +11,8 @@ UPSTREAM_FILE="$(basename $UPSTREAM_URL)"
 GIT_URL_HP_FLASH="https://tw-mloschwitz:$GH_TOKEN@github.com/junglezoo42/debian-for-hp-flash.git"
 GIT_URL_HPUEFI_KMOD="https://tw-mloschwitz:$GH_TOKEN@github.com/junglezoo42/debian-for-hpuefi-mod.git"
 
+TEST=1
+
 cleanup () {
 	# delete cruft
 	rm -rf src
