@@ -8,8 +8,8 @@ export DEBEMAIL="junglezoo42@mail.de"
 UPSTREAM_URL="https://ftp.hp.com/pub/softpaq/sp150501-151000/sp150953.tgz"
 UPSTREAM_FILE="$(basename $UPSTREAM_URL)"
 
-GIT_URL_HP_FLASH="git@github.com:junglezoo42/debian-for-hp-flash.git"
-GIT_URL_HPUEFI_KMOD="git@github.com:junglezoo42/debian-for-hpuefi-mod.git"
+GIT_URL_HP_FLASH="https://tw-mloschwitz:$GH_TOKEN@github.com/junglezoo42/debian-for-hp-flash.git"
+GIT_URL_HPUEFI_KMOD="https://tw-mloschwitz:$GH_TOKEN@github.com/junglezoo42/debian-for-hpuefi-mod.git"
 
 cleanup () {
 	# delete cruft

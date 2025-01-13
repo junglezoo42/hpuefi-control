@@ -1,0 +1,24 @@
+name: Build and Upload Debian Package
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up GPG
+        run: |
+          echo "${{ secrets.GPG_KEY }}" | gpg --import
+          echo "${{ secrets.GPG_OWNERTRUST }}" | gpg --import-ownertrust
+
+      - name: Run build and upload script
+        run: ./hpuefi-package.sh
+        env:
+          DEBIAN_FRONTEND: noninteractive
