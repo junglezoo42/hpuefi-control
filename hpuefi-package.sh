@@ -50,6 +50,8 @@ unpack () {
 	mkdir -p src/build/hpuefi-mod-${hp_uefi_mod_version}
 	tar xvfz src/build/hp-flash_${hp_flash_version}.orig.tar.gz -C src/build/hp-flash-${hp_flash_version} --strip-components=2
 	tar xvfz src/build/hpuefi-mod_${hp_uefi_mod_version}.orig.tar.gz -C src/build/hpuefi-mod-${hp_uefi_mod_version} --strip-components=2
+	git config --global user.email "junglezoo42@mail.de"
+	git config --global user.name "junglezoo42"
 	git clone $GIT_URL_HP_FLASH src/build/hp-flash-${hp_flash_version}/debian
 	git clone $GIT_URL_HPUEFI_KMOD src/build/hpuefi-mod-${hp_uefi_mod_version}/debian
 }
