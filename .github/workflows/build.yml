@@ -22,3 +22,4 @@ jobs:
         run: ./hpuefi-package.sh
         env:
           DEBIAN_FRONTEND: noninteractive
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
