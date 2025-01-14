@@ -63,9 +63,14 @@ unpack () {
 	git config --global user.email "martin.loschwitz@true-west.com"
 	git config --global user.name "Martin Gerhard Loschwitz"
 	git clone $GIT_URL_HP_FLASH src/build/hp-flash-${hp_flash_version}/debian
-	(cd src/build/hp-flash-${hp_flash_version}/debian && git checkout $DISTRIBUTION)
 	git clone $GIT_URL_HPUEFI_KMOD src/build/hpuefi-mod-${hp_uefi_mod_version}/debian
-	(cd src/build/hpuefi-mod-${hp_uefi_mod_version}/debian && git checkout $DISTRIBUTION)
+	if [[ "$DISTRIBUTION" = "noble" ]]; then
+		(cd src/build/hp-flash-${hp_flash_version}/debian)
+		(cd src/build/hpuefi-mod-${hp_uefi_mod_version}/debian)
+        else
+		(cd src/build/hp-flash-${hp_flash_version}/debian && git checkout $DISTRIBUTION)
+		(cd src/build/hpuefi-mod-${hp_uefi_mod_version}/debian && git checkout $DISTRIBUTION)
+        fi
 }
 
 prepare_system () {
@@ -99,8 +104,8 @@ upload_packages () {
 }
 
 update_git () {
-	(cd src/build/hp-flash-${hp_flash_version}/debian && git commit -a -m "Update changelog" && git push origin $DISTRIBUTION)
-	(cd src/build/hpuefi-mod-${hp_uefi_mod_version}/debian && git commit -a -m "Update changelog" && git push origin $DISTRIBUTION)
+	(cd src/build/hp-flash-${hp_flash_version}/debian && git commit -a -m "Update changelog" && git push origin)
+	(cd src/build/hpuefi-mod-${hp_uefi_mod_version}/debian && git commit -a -m "Update changelog" && git push origin)
 }
 
 determine_distro
