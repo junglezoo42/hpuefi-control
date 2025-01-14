@@ -69,7 +69,7 @@ unpack () {
 }
 
 prepare_system () {
-	if [[ $DISTRIBUTION == "focal" ]]; then
+	if [[ "$DISTRIBUTION" = "focal" ]]; then
 		sudo apt -y install debhelper/focal-backports libdebhelper-perl/focal-backports
 	fi
 	sudo apt -y install build-essential devscripts debhelper-compat dh-exec dh-sequence-dkms
