@@ -77,7 +77,10 @@ prepare_system () {
 	if [[ "$DISTRIBUTION" = "focal" ]]; then
 		sudo apt -y install debhelper/focal-backports libdebhelper-perl/focal-backports
 	fi
-	sudo apt -y install build-essential devscripts debhelper-compat dh-exec dh-sequence-dkms
+	sudo apt -y install build-essential devscripts debhelper-compat dh-exec dkms
+	if [[ "$DISTRIBUTION" = "noble" ]]; then
+		sudo apt -y install dh-dkms
+	fi
 }
 
 create_changelog () {
