@@ -113,6 +113,6 @@ prepare_system
 create_changelog
 build_packages
 move_packages
-# sign_packages
-# upload_packages
+sign_packages
+upload_packages
 update_git
