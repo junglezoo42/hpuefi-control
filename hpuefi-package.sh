@@ -13,6 +13,16 @@ GIT_URL_HPUEFI_KMOD="https://tw-mloschwitz:$GH_TOKEN@github.com/junglezoo42/debi
 
 TEST=1
 
+determine_distro () {
+	if [[ $(lsb_release -c -s) == focal ]]; then
+		DISTRIBUTION=focal
+	elif [[ $(lsb_release -c -s) == jammy ]]; then
+		DISTRIBUTION=jammy
+	elif [[ $(lsb_release -c -s) == noble ]]; then
+		DISTRIBUTION=noble
+	fi
+}
+
 cleanup () {
 	# delete cruft
 	rm -rf src
@@ -53,16 +63,21 @@ unpack () {
 	git config --global user.email "martin.loschwitz@true-west.com"
 	git config --global user.name "Martin Gerhard Loschwitz"
 	git clone $GIT_URL_HP_FLASH src/build/hp-flash-${hp_flash_version}/debian
+	(cd src/build/hp-flash-${hp_flash_version}/debian && git checkout $DISTRIBUTION)
 	git clone $GIT_URL_HPUEFI_KMOD src/build/hpuefi-mod-${hp_uefi_mod_version}/debian
+	(cd src/build/hpuefi-mod-${hp_uefi_mod_version}/debian && git checkout $DISTRIBUTION)
 }
 
 prepare_system () {
+	if [[ $DISTRIBUTION == "focal" ]]; then
+		sudo apt -y install debhelper/focal-backports libdebhelper-perl/focal-backports
+	fi
 	sudo apt -y install build-essential devscripts debhelper-compat dh-exec dh-sequence-dkms
 }
 
 create_changelog () {
-	(cd src/build/hp-flash-${hp_flash_version} && dch -D jammy -l unofficial "New upstream release")
-	(cd src/build/hpuefi-mod-${hp_uefi_mod_version} && dch -D jammy -l unofficial "New upstream release")
+	(cd src/build/hp-flash-${hp_flash_version} && dch -D $DISTRIBUTION -l unofficial+$DISTRIBUTION "New package release")
+	(cd src/build/hpuefi-mod-${hp_uefi_mod_version} && dch -D $DISTRIBUTION -l unofficial+$DISTRIBUTION "New package release")
 }
 
 build_packages () {
@@ -84,10 +99,11 @@ upload_packages () {
 }
 
 update_git () {
-	(cd src/build/hp-flash-${hp_flash_version}/debian && git commit -a -m "Update changelog" && git push origin)
-	(cd src/build/hpuefi-mod-${hp_uefi_mod_version}/debian && git commit -a -m "Update changelog" && git push origin)
+	(cd src/build/hp-flash-${hp_flash_version}/debian && git commit -a -m "Update changelog" && git push origin $DISTRIBUTION)
+	(cd src/build/hpuefi-mod-${hp_uefi_mod_version}/debian && git commit -a -m "Update changelog" && git push origin $DISTRIBUTION)
 }
 
+determine_distro
 cleanup
 download_upstream
 unpack_orig
@@ -97,6 +113,6 @@ prepare_system
 create_changelog
 build_packages
 move_packages
-sign_packages
-upload_packages
+# sign_packages
+# upload_packages
 update_git
