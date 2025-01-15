@@ -84,7 +84,11 @@ prepare_system () {
 }
 
 create_changelog () {
-	(cd src/build/hp-flash-${hp_flash_version} && dch -D $DISTRIBUTION -l unofficial+$DISTRIBUTION "New package release")
+	if [[ "$DISTRIBUTION" = "focal" ]]; then
+		(cd src/build/hp-flash-${hp_flash_version} && dch -D $DISTRIBUTION-backports -l unofficial+$DISTRIBUTION "New package release")
+	else
+		(cd src/build/hp-flash-${hp_flash_version} && dch -D $DISTRIBUTION -l unofficial+$DISTRIBUTION "New package release")
+	fi
 	(cd src/build/hpuefi-mod-${hp_uefi_mod_version} && dch -D $DISTRIBUTION -l unofficial+$DISTRIBUTION "New package release")
 }
 
