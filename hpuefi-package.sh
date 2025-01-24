@@ -11,7 +11,7 @@ UPSTREAM_FILE="$(basename $UPSTREAM_URL)"
 GIT_URL_HP_FLASH="https://tw-mloschwitz:$GH_TOKEN@github.com/junglezoo42/debian-for-hp-flash.git"
 GIT_URL_HPUEFI_KMOD="https://tw-mloschwitz:$GH_TOKEN@github.com/junglezoo42/debian-for-hpuefi-mod.git"
 
-REBUILD=6
+REVISION=14
 
 determine_distro () {
 	if [[ $(lsb_release -c -s) == focal ]]; then
