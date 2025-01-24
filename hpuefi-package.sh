@@ -84,8 +84,8 @@ prepare_system () {
 }
 
 create_changelog () {
-	(cd src/build/hp-flash-${hp_flash_version} && dch -D $DISTRIBUTION -l unofficial+$DISTRIBUTION "New package release")
-	(cd src/build/hpuefi-mod-${hp_uefi_mod_version} && dch -D $DISTRIBUTION -l unofficial+$DISTRIBUTION "New package release")
+	(cd src/build/hp-flash-${hp_flash_version} && dch -D $DISTRIBUTION -l junglezoo42+$DISTRIBUTION "New package release")
+	(cd src/build/hpuefi-mod-${hp_uefi_mod_version} && dch -D $DISTRIBUTION -l junglezoo42+$DISTRIBUTION "New package release")
 }
 
 build_packages () {
