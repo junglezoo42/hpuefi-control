@@ -5,7 +5,7 @@ set -euo pipefail
 export DEBFULLNAME="junglezoo42"
 export DEBEMAIL="junglezoo42@mail.de"
 
-UPSTREAM_URL="https://ftp.hp.com/pub/softpaq/sp150501-151000/sp150953.tgz"
+UPSTREAM_URL="https://ftp.hp.com/pub/softpaq/sp157501-158000/sp157762.tgz"
 UPSTREAM_FILE="$(basename $UPSTREAM_URL)"
 
 GIT_URL_HP_FLASH="https://tw-mloschwitz:$GH_TOKEN@github.com/junglezoo42/debian-for-hp-flash.git"
